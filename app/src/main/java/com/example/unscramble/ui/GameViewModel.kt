@@ -8,6 +8,7 @@ import com.example.unscramble.data.allWords
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 
 class GameViewModel: ViewModel() {
     //Game UI state
@@ -56,5 +57,18 @@ class GameViewModel: ViewModel() {
 
     fun updateUserGuess(guessWord: String){
         userGuess = guessWord
+    }
+
+    fun checkUserGuess(){
+        if(userGuess.equals(currentWord, ignoreCase = true)){
+            //actions
+
+        }else{
+            //user guess is wrong
+            _uiState.update { currentState ->
+                currentState.copy(isGuessedWordWrong = true) //things is parenthesis will be changed other is copy over
+            }
+        }
+        updateUserGuess("")
     }
 }
